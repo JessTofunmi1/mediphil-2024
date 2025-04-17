@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe & Download</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="email"] {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-style: italic;
+            color: green;
+            font-size: 16px;
+        }
+        #error-message {
+            color: red;
+            margin-top: 20px;
+            font-size: 16px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Subscribe to Download</h1>
+        <form name="formemail" method="post" action="https://script.google.com/macros/s/AKfycbyCGxJlpBdd_Mp6ZXsCBc5G9vdlprQyitVja_Cab2eLk2DEwdiYUzuuzUVaS8U5a4x42A/exec">
+            <input type="email" name="youremail" id="email" placeholder="Enter your email address">
+        <div id="error-message">Please enter a valid email address.</div>
+        <button id="submit" value="Submit" type="submit" onclick="subscribe()">Subscribe</button>
+        <p id="subscription-message" class="message" style="display: none;">Thanks for subscribing!</p>
+    </form>
+    </div>
+    <script>
+        const errorMessageElement = document.getElementById('error-message');
+        const subscriptionMessageElement = document.getElementById('subscription-message');
+        const subscribeButton = document.getElementById('subscribe-button');
+
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function subscribe() {
+            const email = document.getElementById('email').value.trim();
+
+            if (!validateEmail(email)) {
+                errorMessageElement.style.display = 'block';
+                return;
+            }
+            errorMessageElement.style.display = 'none';
+
+            subscribeButton.disabled = true;
+            subscribeButton.textContent = 'Subscribing...';
+
+           
+            setTimeout(() => {
+                
+                console.log('Simulated subscription to email:', email);
+                subscriptionMessageElement.style.display = 'block';
+                 localStorage.setItem('subscriber_email', email);
+                setTimeout(() => {
+                    window.location.href = 'download.html';
+                }, 1500);
+            }, 2000);
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
